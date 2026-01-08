@@ -12,8 +12,9 @@ export const createClient = () => {
     if (typeof window !== 'undefined') {
         console.error("Supabase Env Vars missing!")
     }
-    // Fallback to empty string to prevent crash during static generation if not used
-    return createBrowserClient(url || '', key || '')
+    // Fallback to a syntactically valid URL to prevent crash during static generation
+    // This allows 'npm run build' to succeed even without env vars
+    return createBrowserClient('https://placeholder.supabase.co', 'placeholder-key')
   }
 
   return createBrowserClient(url, key)
